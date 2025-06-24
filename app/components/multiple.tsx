@@ -1,0 +1,44 @@
+"use client";
+
+import React from "react";
+import { Box, Fab, IconButton, Typography } from "@mui/material";
+import AddIcon from "@mui/icons-material/Add";
+import RemoveIcon from "@mui/icons-material/Remove";
+import { yellow } from "@mui/material/colors";
+
+interface Props {
+  reverse?: boolean
+}
+
+export default function Multiple({ reverse }: Props) {
+  const [count, setCount] = React.useState<any>(0);
+  return (
+    <Box sx={{ display: "flex", alignItems: 'center', gap: 1 }} flexDirection={reverse ? "column-reverse" : "row"} >
+      <IconButton
+        aria-label="delete"
+        size="small"
+        sx={{
+          backgroundColor: yellow[500],
+          color: "white",
+          ":hover": "none",
+        }}
+        onClick={() => setCount(count - 1)}
+      >
+        <RemoveIcon fontSize="inherit" />
+      </IconButton>
+      <Typography component="span">{count}</Typography>
+      <IconButton
+        aria-label="delete"
+        size="small"
+        sx={{
+          backgroundColor: yellow[500],
+          color: "white",
+          ":hover": "none",
+        }}
+        onClick={() => setCount(count + 1)}
+      >
+        <AddIcon fontSize="inherit" />
+      </IconButton>
+    </Box>
+  );
+}
