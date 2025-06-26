@@ -1,3 +1,3 @@
 export const config = {
-  url: "https://pizzahouse.ua/_next/data/zJzxYrXlDOPJtPMqXZ0D1/uk/",
+  url: "https://pizzahouse.ua/_next/data/2eCHWCjKoY68HkLs51Yd-/uk/",
 };

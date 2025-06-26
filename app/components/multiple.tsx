@@ -8,10 +8,23 @@ import { yellow } from "@mui/material/colors";
 
 interface Props {
   reverse?: boolean
+  i?: any
 }
 
-export default function Multiple({ reverse }: Props) {
+export default function Multiple({ reverse, i }: Props) {
   const [count, setCount] = React.useState<any>(0);
+  
+  const plusCount = () => {
+    setCount(count  + 1)
+  }
+
+  const minusCount = () => {
+    if (count == 0) {
+      return count
+    } else {
+      setCount(count - 1)
+    }
+  }
   return (
     <Box sx={{ display: "flex", alignItems: 'center', gap: 1 }} flexDirection={reverse ? "column-reverse" : "row"} >
       <IconButton
@@ -22,7 +35,7 @@ export default function Multiple({ reverse }: Props) {
           color: "white",
           ":hover": "none",
         }}
-        onClick={() => setCount(count - 1)}
+        onClick={() => minusCount()}
       >
         <RemoveIcon fontSize="inherit" />
       </IconButton>
@@ -35,7 +48,7 @@ export default function Multiple({ reverse }: Props) {
           color: "white",
           ":hover": "none",
         }}
-        onClick={() => setCount(count + 1)}
+        onClick={() => plusCount()}
       >
         <AddIcon fontSize="inherit" />
       </IconButton>

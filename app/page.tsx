@@ -4,6 +4,7 @@ import { Container, Grid } from "@mui/material";
 import Categories from "./components/categories";
 import CenterMode from "./components/slider";
 import CardItem from "./components/card-item";
+import { useShopStore } from "./providers/store-provider";
 
 
 export default function Home() {
@@ -18,10 +19,13 @@ export default function Home() {
   if (!items) {
     return null;
   }
-
+    const bears = useShopStore((state) => state.bears)
+  const fishes = useShopStore((state) => state.fishes)
+  const addBear = useShopStore((state) => state.addBear)
+  const eatFish = useShopStore((state) => state.addBoth)
   return (
     <div className="">
-      <Categories categories={items.categories}/>
+      {/* <Categories categories={items.categories}/>
       <CenterMode />
       <Container maxWidth="xl">
         <Grid container spacing={5} sx={{ mx: "auto" }}>
@@ -31,7 +35,11 @@ export default function Home() {
             </Grid>
           ))}
         </Grid>
-      </Container>
+      </Container> */}
+      <h2>Number of bears: {bears}</h2>
+      <h2>Number of fishes: {fishes}</h2>
+      <button onClick={() => addBear()}>Add a bear</button>
+      <button onClick={() => eatFish()}>Eat fish</button>
     </div>
   );
 }

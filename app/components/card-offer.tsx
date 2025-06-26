@@ -8,7 +8,6 @@ export default function CardOffer({ product }: any) {
   if (!product) {
     return null
   }
-  console.log(product)
 
   return <Card sx={{ display: 'flex', justifyContent: 'center', alignItems: "center", px: 2, borderRadius: 5, maxWidth: '450px' }}>
     <Link href={`${product.url}`}>
@@ -42,7 +41,6 @@ export default function CardOffer({ product }: any) {
           </IconButton>
         </Box>
       </CardContent>
-
     </Box>
   </Card>
 }

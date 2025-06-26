@@ -12,6 +12,7 @@ import theme from "./theme";
 import { ThemeProvider } from "@mui/material";
 import Header from "./components/header";
 import Footer from "./components/footer";
+import { ShopStoreProvider } from "./providers/store-provider";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -28,9 +29,11 @@ export default function RootLayout({
       <ThemeProvider theme={theme}>
         <body
         >
-          <Header />
-          {children}
-          <Footer />
+          <ShopStoreProvider>
+            <Header />
+            {children}
+            <Footer />
+          </ShopStoreProvider>
         </body>
       </ThemeProvider>
     </html>
