@@ -12,13 +12,13 @@ import { grey } from "@mui/material/colors";
 import { getPizzaId } from "../../lib/data";
 import CardOffer from "../components/card-offer";
 import ModifiersMultiple from "../components/modifiers-multiple";
+import { useShopStore } from "../providers/store-provider";
 
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const { slug } = await params
   const response = await getPizzaId(slug);
   const product = response.pageProps.product;
-  const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
   return (
     <div>

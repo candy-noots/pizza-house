@@ -3,6 +3,7 @@
 import * as React from "react";
 import { Box, Stack, Typography, Menu, Button } from "@mui/material";
 import CardBasket from "./card-basket";
+import { useShopStore } from "../../providers/store-provider";
 
 export default function Basket() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -16,7 +17,9 @@ export default function Basket() {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const cartProducts = useShopStore(state => state.cart)
+  const totalPrice = useShopStore(state => state.totalPrice)
+  const totalCount = useShopStore(state => state.totalCount)
   return (
     <>
       <Button
@@ -28,12 +31,13 @@ export default function Basket() {
         sx={{
           borderRadius: 5,
           py: 1,
-          px: 1.5,
-          bgcolor: "white"
+          px: 2,
+
         }}
-        color="inherit"
+        variant={"contained"}
+        color={cartProducts.length > 0 ? "secondary" : "inherit"}
       >
-        CART | 0 | 0 $
+        CART | {totalCount} | ${totalPrice}
       </Button>
       <Menu
         id={"id_menu"}
@@ -47,8 +51,10 @@ export default function Basket() {
       >
         <Box sx={{ width: 400, height: 600 }}>
           <Stack spacing={2} p={2} display="flex" flexDirection="column" justifyContent="space-between" height="100%">
-            <Box>
-              <CardBasket />
+            <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+              {cartProducts.map((e: any, index: any,) => (
+                <CardBasket key={index} product={e} />
+              ))}
             </Box>
             <Box mt={4}>
               <Typography component="div">

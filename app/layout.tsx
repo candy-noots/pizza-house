@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material";
-import Header from "./components/header";
+import Header from "./components/header/header";
 import Footer from "./components/footer";
 import { ShopStoreProvider } from "./providers/store-provider";
 
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <ThemeProvider theme={theme}>
-        <body
+        <body className=""
         >
           <ShopStoreProvider>
             <Header />

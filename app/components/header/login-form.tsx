@@ -14,11 +14,9 @@ const validationSchema = Yup.object().shape({
 });
 
 const LoginForm = () => {
-
   const handleFormSubmit = (values: any) => {
     console.log(values);
   }
-
   return (
     <Formik
       initialValues={{ phone: +380, password: '' }}

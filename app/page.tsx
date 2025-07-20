@@ -23,9 +23,10 @@ export default function Home() {
   const fishes = useShopStore((state) => state.fishes)
   const addBear = useShopStore((state) => state.addBear)
   const eatFish = useShopStore((state) => state.addBoth)
+
   return (
     <div className="">
-      {/* <Categories categories={items.categories}/>
+      <Categories categories={items.categories}/>
       <CenterMode />
       <Container maxWidth="xl">
         <Grid container spacing={5} sx={{ mx: "auto" }}>
@@ -35,11 +36,11 @@ export default function Home() {
             </Grid>
           ))}
         </Grid>
-      </Container> */}
-      <h2>Number of bears: {bears}</h2>
+      </Container>
+      {/* <h2>Number of bears: {bears}</h2>
       <h2>Number of fishes: {fishes}</h2>
       <button onClick={() => addBear()}>Add a bear</button>
-      <button onClick={() => eatFish()}>Eat fish</button>
+      <button onClick={() => eatFish()}>Eat fish</button> */}
     </div>
   );
 }

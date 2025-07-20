@@ -2,7 +2,8 @@
 
 import { type ReactNode, createContext, useRef, useContext } from 'react'
 import { useStore } from 'zustand'
-import { BearSlice, createShopStore, FishSlice, SharedSlice } from '../stores/shop-store'
+import { createShopStore } from '../stores/shop-store'
+import { CartSlice } from '../stores/cartSlice'
 
 export type ShopStoreApi = ReturnType<typeof createShopStore>
 
@@ -30,7 +31,7 @@ export const ShopStoreProvider = ({
 }
 
 export const useShopStore = <T,>(
-  selector: (store: BearSlice & FishSlice & SharedSlice) => T,
+  selector: (store: CartSlice) => T,
 ): T => {
   const shopStoreContext = useContext(ShopStoreContext)
 

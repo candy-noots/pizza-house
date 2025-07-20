@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import { Box } from "@mui/material";
 import Link from "next/link";
 import { grey } from "@mui/material/colors";
+import { useShopStore } from "../providers/store-provider";
 
 export default function CardItem({ title, products, image }: any) {
   const [active, setActive] = React.useState<number>(0);
@@ -14,6 +15,8 @@ export default function CardItem({ title, products, image }: any) {
     setActive(element);
   };
   if (!products) return null;
+  const addProductToCart = useShopStore(state => state.addProductToCart)
+    const removeProductFromCart = useShopStore(state => state.removeProductFromCart)
 
   return (
     <Card sx={{
@@ -29,13 +32,16 @@ export default function CardItem({ title, products, image }: any) {
           alt="green iguana"
           className="object-contain"
         />
+         </Link>
         <CardContent>
+          <Link href={`${products[active].url}`}>
           <Typography variant="h5" component="h5" mb={2}>
             {title}
           </Typography>
           <Typography variant="body2" sx={{ color: "text.secondary" }}>
             {products[0]?.description}
           </Typography>
+          </Link>
           <Box
             display="flex"
 
@@ -63,7 +69,6 @@ export default function CardItem({ title, products, image }: any) {
             </Button>
           </Box>
         </CardContent>
-      </Link>
       <CardActions
         sx={{
           display: "flex",
@@ -83,8 +88,16 @@ export default function CardItem({ title, products, image }: any) {
         <Button
           size="medium"
           variant="contained"
+          onClick={() => addProductToCart(products[active])}
         >
           У кошик
+        </Button>
+        <Button
+          size="medium"
+          variant="contained"
+          onClick={() => removeProductFromCart(products[active].id)}
+        >
+          Прибрати з кошика
         </Button>
       </CardActions>
     </Card>

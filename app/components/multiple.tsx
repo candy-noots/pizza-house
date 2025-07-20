@@ -5,26 +5,16 @@ import { Box, Fab, IconButton, Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import { yellow } from "@mui/material/colors";
+import { Product } from "@/types/product";
 
 interface Props {
   reverse?: boolean
-  i?: any
+  countProduct: number
+  plusCount: () => void
+  minusCount: () => void
 }
 
-export default function Multiple({ reverse, i }: Props) {
-  const [count, setCount] = React.useState<any>(0);
-  
-  const plusCount = () => {
-    setCount(count  + 1)
-  }
-
-  const minusCount = () => {
-    if (count == 0) {
-      return count
-    } else {
-      setCount(count - 1)
-    }
-  }
+export default function Multiple({ reverse, countProduct, plusCount, minusCount }: Props) {
   return (
     <Box sx={{ display: "flex", alignItems: 'center', gap: 1 }} flexDirection={reverse ? "column-reverse" : "row"} >
       <IconButton
@@ -35,11 +25,11 @@ export default function Multiple({ reverse, i }: Props) {
           color: "white",
           ":hover": "none",
         }}
-        onClick={() => minusCount()}
+        onClick={minusCount}
       >
         <RemoveIcon fontSize="inherit" />
       </IconButton>
-      <Typography component="span">{count}</Typography>
+      <Typography component="span">{countProduct}</Typography>
       <IconButton
         aria-label="delete"
         size="small"
@@ -48,7 +38,7 @@ export default function Multiple({ reverse, i }: Props) {
           color: "white",
           ":hover": "none",
         }}
-        onClick={() => plusCount()}
+        onClick={plusCount}
       >
         <AddIcon fontSize="inherit" />
       </IconButton>
