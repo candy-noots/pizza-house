@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 
-function CenterMode() {
+function Carousel() {
   const settings = {
     className: "center",
     centerMode: true,
@@ -45,4 +45,4 @@ function CenterMode() {
   );
 }
 
-export default CenterMode;
+export default Carousel;

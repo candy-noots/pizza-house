@@ -4,10 +4,10 @@ import { AppBar, Box, Toolbar, Button, Container } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import HeaderMenu from "./header-menu";
 import HeaderSelect from "./header-select";
-import ModalPopup from "./modal-popup";
-import Basket from "./basket";
+import Basket from "../basket/basket";
 
 import Link from "next/link";
+import ModalPopup from "../modal/modal-popup";
 
 export default function Header() {
   return (

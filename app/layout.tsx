@@ -10,7 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material";
-import Header from "./components/header/header";
+import Header from "./entities/header/header";
 import Footer from "./components/footer";
 import { ShopStoreProvider } from "./providers/store-provider";
 

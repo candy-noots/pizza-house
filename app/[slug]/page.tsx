@@ -1,110 +1,73 @@
-import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  FormControlLabel,
-  FormGroup,
-  Grid,
-  Typography,
-} from "@mui/material";
-import { grey } from "@mui/material/colors";
-import { getPizzaId } from "../../lib/data";
-import CardOffer from "../components/card-offer";
-import ModifiersMultiple from "../components/modifiers-multiple";
+import { getPizzaId } from "@/lib/data";
+import { Container, Grid, Typography } from "@mui/material";
+import PriceBox from "../entities/productId/price-box";
+import ModifiersCheckboxList from "../entities/productId/modifiers-checkbox-list";
+import RelatedProducts from "../entities/productId/related-products";
+import ModifiersMultiple from "../entities/productId/modifiers-multiple";
 import { useShopStore } from "../providers/store-provider";
+import ModifiersItem from "../entities/productId/modifiers-item";
+import ModifiersList from "../entities/productId/modifiers-list";
 
+interface Params {
+  params: { slug: string };
+}
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = await params
+export default async function Page({ params }: Params) {
+  const slug = params.slug;
   const response = await getPizzaId(slug);
   const product = response.pageProps.product;
-
+  let productModifiers: any = []
   return (
-    <div>
-      <Container maxWidth="xl">
-        <Grid container spacing={2} p={5} alignItems="flex-start">
-          <Grid size={6} display="flex" justifyContent="center" alignItems="center">
-            <img
-              src={`https://pizzahouse.ua` + product.image.large}
-              className="w-[500] h-full object-contain"
-              alt={product.image.title}
-            />
-          </Grid>
-          <Grid size={6}>
-            <Typography variant={"h4"}>{product.title}</Typography>
-            <Typography variant={"h4"}>{product.weight}</Typography>
-            <Typography variant="subtitle1">
-              {product.description}
-            </Typography>
-            <Box
-              display="flex"
-              gap={1}
-              mt={2}
-              borderRadius={3}
-              bgcolor={grey[100]}
-              p={1.5}
-            >
-              <Typography
-                variant="h4"
-                width="100%"
-                textAlign="center"
-                my="auto"
-              >
-                {product.price} $
-              </Typography>
-              <Button
-                variant="contained"
-                fullWidth
-                size="large"
-                sx={{ borderRadius: 4 }}
-              >
-                У кошик
-              </Button>
-            </Box>
-            {
-              product.group_modifiers.length > 0 && (
-                <Typography variant="h5" mt={2}>
-                  Хочу додати
-                </Typography>
-              )
-            }
-
-            {product.group_modifiers.map((e: any) => {
-              return e.type == "select" &&
-                (
-                  <FormGroup sx={{ p: 2 }}>
-                    <Typography variant="subtitle1">{e.title}:</Typography>
-                    {e.modifiers.map((l: any) => {
-                      return (
-                        <FormControlLabel key={l.id} control={<Checkbox />} label={`${l.title} +${l.price} ₴`} />
-                      );
-                    })}
-
-                  </FormGroup>
-                )
-            })}
-
-            {
-              product.group_modifiers.map((e: any) => {
-                return e.type == 'multiple' && (
-                  <ModifiersMultiple e={e} />
-                )
-              })
-            }
-          </Grid>
+    <Container maxWidth="xl">
+      <Grid container spacing={2} p={5} alignItems="flex-start">
+        <Grid size={{ xs: 12, md: 6 }} display="flex" justifyContent="center">
+          <img
+            src={`https://pizzahouse.ua${product.image.large}`}
+            className="w-[500] h-full object-contain"
+            alt={product.image.title}
+          />
         </Grid>
-        <Typography variant="h4">
-          Часто замовляють з
-        </Typography>
-        <Box display="flex" gap={15} my={5}>
-          {
-            product?.well_together_products.map((e: any) => (
-              <CardOffer key={e.id} product={e} />
-            ))
-          }
-        </Box>
-      </Container>
-    </div>
+
+        <Grid size={{ xs: 12, md: 6 }}>
+          <Typography variant="h4">{product.title}</Typography>
+          <Typography variant="subtitle1" mt={1}>
+            {product.weight}
+          </Typography>
+          <Typography variant="body1" mt={1}>
+            {product.description}
+          </Typography>
+
+          <PriceBox product={product} />
+
+          {product.group_modifiers?.length > 0 && (
+            <>
+              <Typography variant="h5" mt={3}>Хочу додати</Typography>
+              <ModifiersList />
+              {[...product.group_modifiers]
+                .sort((a, b) => {
+                  if (a.type === "select" && b.type !== "select") return -1;
+                  if (a.type !== "select" && b.type === "select") return 1;
+                  return 0;
+                })
+                .map((mod: any) =>
+                  mod.type === "select" ? (
+                    <ModifiersCheckboxList
+                      key={mod.title}
+                      title={mod.title}
+                      modifiers={mod.modifiers}
+                      productModifiers={productModifiers}
+                    />
+                  ) : mod.type === "multiple" ? (
+                    <ModifiersMultiple key={mod.title} e={mod} />
+                  ) : null
+                )}
+
+            </>
+          )}
+        </Grid>
+      </Grid>
+
+      <RelatedProducts products={product.well_together_products} />
+    </Container>
   );
 }

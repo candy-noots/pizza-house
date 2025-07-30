@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Paper, Stack, Typography } from "@mui/material";
-import Multiple from "../multiple";
+import Multiple from "../../components/multiple";
 import Image from "next/image";
 import { Product } from "@/types/product";
 import { useShopStore } from "@/app/providers/store-provider";

@@ -12,6 +12,7 @@ export type Product = {
   route: string;
   open_graph: string;
   count?: number | undefined;
+  modifiers: any[];
   image: {
     large: string;
     medium: string;

@@ -1,46 +1,54 @@
-"use client";
-import { useEffect, useState } from "react";
 import { Container, Grid } from "@mui/material";
 import Categories from "./components/categories";
-import CenterMode from "./components/slider";
-import CardItem from "./components/card-item";
-import { useShopStore } from "./providers/store-provider";
+import Carousel from "./components/carousel";
+import PizzaCard from "./entities/pizza/pizza-card";
 
 
-export default function Home() {
-  const [items, setItems] = useState<any>([]);
-  useEffect(() => {
-    fetch("/api/pizzas")
-      .then((res) => res.json())
-      .then((data) => {
-        setItems(data);
-      });
-  }, []);
-  if (!items) {
-    return null;
+interface Pizza {
+  id: string;
+  title: string;
+  image: {
+    large: string;
+  };
+  products: any[];
+}
+
+interface ItemsResponse {
+  categories: string[];
+  pizzas: Pizza[];
+}
+
+async function getPizzas(): Promise<ItemsResponse> {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pizzas`, {
+    cache: "no-store", // або "force-cache" для кешування на сервері
+  });
+
+  if (!res.ok) {
+    throw new Error("Не вдалося завантажити піци");
   }
-    const bears = useShopStore((state) => state.bears)
-  const fishes = useShopStore((state) => state.fishes)
-  const addBear = useShopStore((state) => state.addBear)
-  const eatFish = useShopStore((state) => state.addBoth)
 
+  return res.json();
+}
+
+export default async function Home() {
+  const items = await getPizzas();
   return (
-    <div className="">
-      <Categories categories={items.categories}/>
-      <CenterMode />
+    <div>
+      <Categories categories={items.categories} />
+      <Carousel />
       <Container maxWidth="xl">
-        <Grid container spacing={5} sx={{ mx: "auto" }}>
-          {items?.pizzas?.map((e: any) => (
-            <Grid size={4} spacing={10} key={e.id}>
-              <CardItem title={e.title} products={e.products} image={e.image} />
+        <Grid container spacing={5}>
+          {items.pizzas.map((pizza) => (
+            <Grid key={pizza.id} size={{ xs: 12, sm: 6, md: 3 }}>
+              <PizzaCard
+                title={pizza.title}
+                products={pizza.products}
+                image={pizza.image}
+              />
             </Grid>
           ))}
         </Grid>
       </Container>
-      {/* <h2>Number of bears: {bears}</h2>
-      <h2>Number of fishes: {fishes}</h2>
-      <button onClick={() => addBear()}>Add a bear</button>
-      <button onClick={() => eatFish()}>Eat fish</button> */}
     </div>
   );
 }

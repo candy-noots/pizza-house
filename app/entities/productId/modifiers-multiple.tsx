@@ -1,9 +1,24 @@
+'use client'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
-import React from "react";
-import Multiple from "./multiple";
+import React, { useEffect } from "react";
+import Multiple from "../../components/multiple";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useShopStore } from "@/app/providers/store-provider";
+import { usePathname } from "next/navigation";
 
 export default function ModifiersMultiple({ e }: any) {
+    const pathname = usePathname();
+
+    const selectedModifiers = useShopStore((state) => state.modifiers);
+    const addModifier = useShopStore((state) => state.addModifier);
+    const removeModifier = useShopStore((state) => state.removeModifier);
+    const clearModifiers = useShopStore((state) => state.clearModifiers);
+
+    useEffect(() => {
+        return () => {
+            clearModifiers();
+        };
+    }, [pathname]);
     return <Accordion
         sx={{
             boxShadow: "none",
@@ -30,18 +45,26 @@ export default function ModifiersMultiple({ e }: any) {
                 p: 2,
             }}
         >
-            {e.modifiers.map((l: any) => {
+            {e.modifiers.map((i: any) => {
+                // Знайдемо модифікатор у Zustand
+                const modifierInStore = selectedModifiers.find((m) => m.id === i.id);
+                const count = modifierInStore?.count ?? 0;
+
                 return (
-                    <div key={l.id}>
+                    <div key={i.id}>
                         <div className="flex justify-between items-center">
                             <div>
-                                <Typography component="span">{l.title}</Typography>
+                                <Typography component="span">{i.title}</Typography>
                             </div>
                             <div className="flex gap-3">
                                 <Typography component="span">
-                                    {l.weight} г / {l.price} ₴
+                                    {i.weight} г / {i.price} ₴
                                 </Typography>
-                                <Multiple />
+                                <Multiple
+                                    plusCount={() => addModifier(i)}
+                                    minusCount={() => removeModifier(i.id)}
+                                    countProduct={count}
+                                />
                             </div>
                         </div>
                     </div>

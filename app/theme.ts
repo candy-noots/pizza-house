@@ -38,8 +38,8 @@ const theme = createTheme({
       fontWeight: 400
     },
     subtitle2: {
-       fontSize: 14,
-      fontWeight: 400
+       fontSize: 16,
+      fontWeight: 400,
     }
   }
 });
