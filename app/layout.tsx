@@ -10,8 +10,8 @@ import "slick-carousel/slick/slick-theme.css";
 import "./globals.css";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material";
-import Header from "./entities/header/header";
-import Footer from "./components/footer";
+import Header from "./widgets/header";
+import Footer from "./widgets/footer";
 import { ShopStoreProvider } from "./providers/store-provider";
 
 export const metadata: Metadata = {

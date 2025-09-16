@@ -2,12 +2,12 @@ import * as React from "react";
 
 import { AppBar, Box, Toolbar, Button, Container } from "@mui/material";
 import LocalOfferIcon from "@mui/icons-material/LocalOffer";
-import HeaderMenu from "./header-menu";
-import HeaderSelect from "./header-select";
-import Basket from "../basket/basket";
+import HeaderMenu from "../entities/header/header-menu";
+import HeaderSelect from "../entities/header/header-select";
+import Basket from "./basket";
 
 import Link from "next/link";
-import ModalPopup from "../modal/modal-popup";
+import ModalPopup from "./modal-popup";
 
 export default function Header() {
   return (

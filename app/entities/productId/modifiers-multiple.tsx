@@ -1,7 +1,7 @@
 'use client'
 import { Accordion, AccordionDetails, AccordionSummary, Typography } from "@mui/material";
 import React, { useEffect } from "react";
-import Multiple from "../../components/multiple";
+import Multiple from "../components/multiple";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useShopStore } from "@/app/providers/store-provider";
 import { usePathname } from "next/navigation";

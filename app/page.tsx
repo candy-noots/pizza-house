@@ -1,6 +1,6 @@
 import { Container, Grid } from "@mui/material";
-import Categories from "./components/categories";
-import Carousel from "./components/carousel";
+import Categories from "./widgets/categories";
+import Carousel from "./widgets/carousel";
 import PizzaCard from "./entities/pizza/pizza-card";
 
 
@@ -20,7 +20,7 @@ interface ItemsResponse {
 
 async function getPizzas(): Promise<ItemsResponse> {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/pizzas`, {
-    cache: "no-store", // або "force-cache" для кешування на сервері
+    cache: "no-store",
   });
 
   if (!res.ok) {

@@ -1,20 +1,18 @@
-import { getPizzaId } from "@/lib/data";
+import { getPizzaId } from "@/lib/api";
 import { Container, Grid, Typography } from "@mui/material";
 import PriceBox from "../entities/productId/price-box";
 import ModifiersCheckboxList from "../entities/productId/modifiers-checkbox-list";
 import RelatedProducts from "../entities/productId/related-products";
 import ModifiersMultiple from "../entities/productId/modifiers-multiple";
-import { useShopStore } from "../providers/store-provider";
-import ModifiersItem from "../entities/productId/modifiers-item";
 import ModifiersList from "../entities/productId/modifiers-list";
 
 interface Params {
-  params: { slug: string };
+  params: { pizzaId: string };
 }
 
 export default async function Page({ params }: Params) {
-  const slug = params.slug;
-  const response = await getPizzaId(slug);
+  const pizzaId = params.pizzaId;
+  const response = await getPizzaId(pizzaId);
   const product = response.pageProps.product;
   let productModifiers: any = []
   return (

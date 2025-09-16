@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import { Box, Stack, Typography, Menu, Button } from "@mui/material";
-import CardBasket from "./card-basket";
-import { useShopStore } from "../../providers/store-provider";
+import CardBasket from "../entities/basket/card-basket";
+import { useShopStore } from "../providers/store-provider";
 
 export default function Basket() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);

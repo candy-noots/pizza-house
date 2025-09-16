@@ -3,7 +3,7 @@
 import * as React from "react";
 
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
-import LoginForm from "./login-form";
+import LoginForm from "../entities/modal/login-form";
 
 export default function ModalPopup() {
   const [open, setOpen] = React.useState<boolean>(false);

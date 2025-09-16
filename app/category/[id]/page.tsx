@@ -1,19 +1,19 @@
-import CardProduct from "@/app/components/card-product";
-import { getCategoryId, getPizzaId } from "@/lib/data";
+import CardProduct from "@/app/entities/components/card-product";
+import { getCategoryId, getPizzaId } from "@/lib/api";
 import { Box, Container, Grid } from "@mui/material";
 
 interface Props {
   className?: string;
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-  const { slug } = await params
-  const response = await getCategoryId(slug);
+export default async function Page({ params }: { params: { id: string } }) {
+  const { id } = await params
+  const response = await getCategoryId(id);
   const products = response.pageProps.category.category_products
   if (!products || products.length === 0) {
     return <div>Немає продуктів у цій категорії.</div>;
   }
-  console.log(products)
+
   return (
     <div>
        <Container maxWidth="xl">
